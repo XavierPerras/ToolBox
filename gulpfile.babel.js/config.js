@@ -8,7 +8,7 @@ const os = require('os');
 export const browsers =
   os.platform() == 'darwin'
     ? ['google chrome' /*, 'firefox'*/] // osx
-    : ['msedge' /*'chrome',  /*, 'firefox'*/]; // windows
+    : ['msedge' /* 'chrome' /*,'opera', 'firefox'*/]; // windows
 
 // Paths (ne pas toucher)
 export const paths = {
