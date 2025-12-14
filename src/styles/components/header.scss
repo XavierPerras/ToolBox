@@ -17,6 +17,7 @@
         display: flex;
         height: var(--header-height);
         align-items: center;
+        justify-content: space-between;
     }
 
     &::before {
@@ -76,9 +77,10 @@
         position: absolute;
         transform: scale(1);
         transition: all 0.4s $ease-in-expo;
-
+        padding: 100px;
         width: 100%;
-        top: 0;
+
+        top: 100%;
         left: 0;
     }
 
@@ -87,7 +89,7 @@
         flex-direction: column;
         justify-content: space-between;
         list-style: none;
-        padding: 0;
+        padding: 20px;
         width: 100%;
 
         @media screen and (min-width: $breakpoint-xl) {
@@ -104,6 +106,7 @@
 
     li {
         margin: auto;
+        padding: 20px;
         .nav-is-active {
             margin: auto;
         }
