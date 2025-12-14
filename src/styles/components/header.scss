@@ -1,102 +1,117 @@
 /* ==========================================================================
-   header / component
+   Header / Component
    ========================================================================== */
 
 .header {
     --header-height: 100px;
     --logo-width: 200px;
     background-color: var(--color-bg-secondary);
-    align-items: center;
-    display: flex;
 
-    padding: 0 2rem;
-    height: var(--header-height);
-    width: 100%;
-    z-index: 10;
     position: sticky;
     top: 0;
     left: 0;
+    z-index: 10;
     transition: all 0.4s $ease-out-expo;
+
+    .wrapper {
+        display: flex;
+        height: var(--header-height);
+        align-items: center;
+    }
+
     &::before {
-        background-color: var(--color-bg-secondary);
+        content: '';
         display: flex;
         justify-content: space-between;
         height: 100%;
+        background-color: var(--color-bg-secondary);
         z-index: 2;
     }
 
-    @media screen and (min-width: $breakpoint-md) {
+    @media screen and (min-width: $breakpoint-xl) {
         padding: calc(var(--spacing-md) / 2) var(--spacing-md);
-        justify-content: center;
     }
+
     .header-is-hidden.is-scrolling-down & {
         transform: translateY(-100%) translateY(4px);
     }
 }
 
 .header__brand {
-    width: 200px;
-
     z-index: 10;
 
-    @media screen and (min-width: $breakpoint-md) {
+    img {
+        height: 100px;
+    }
+
+    @media screen and (min-width: $breakpoint-xl) {
         margin: 40px 0;
     }
 }
+
 .nav-primary {
     background-color: var(--color-bg-secondary);
 
-    top: 0;
-    left: 0;
-    width: 1000px;
-    height: 100vh;
+    width: 100%;
     padding-top: var(--header-height);
-
     overflow-y: auto;
     z-index: 1;
+    transform: scale(0);
     transition: all 0.4s $ease-out-expo;
-    transform: scale(0); //state before
 
-    @media screen and (min-width: $breakpoint-md) {
-        transform: none;
-        position: relative;
+    @media screen and (min-width: $breakpoint-xl) {
+        position: absolute;
+        top: auto;
+        left: auto;
         height: auto;
-        width: auto;
-        padding: 0;
-        display: block;
+        width: 100%;
+
+        padding: 100px;
+
         z-index: 2;
+        transition: all 0.4s $ease-in-expo;
     }
 
     .nav-is-active & {
-        transform: scale(100%); //stae acive
-    }
-    ul {
-        display: flex;
-        text-align: center;
-        flex-direction: column;
-        justify-content: space-between;
-        list-style-type: none;
-        padding: 0;
+        position: absolute;
+        transform: scale(1);
+        transition: all 0.4s $ease-in-expo;
 
         width: 100%;
-        margin: auto;
-        //transform: translateY(-70%);
-        //opacity: 0;
+        top: 0;
+        left: 0;
+    }
+
+    ul {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        list-style: none;
+        padding: 0;
+        width: 100%;
+
+        @media screen and (min-width: $breakpoint-xl) {
+            flex-direction: row;
+            height: 100%;
+        }
+
         .nav-is-active {
             transform: translateY(0);
             opacity: 1;
             font-size: xx-large;
         }
-        @media screen and (min-width: $breakpoint-md) {
-            flex-direction: row;
+    }
+
+    li {
+        margin: auto;
+        .nav-is-active {
+            margin: auto;
         }
     }
-    li {
-        margin: 35px;
-    }
+
     .nav-right {
-        @media screen and (min-width: $breakpoint-md) {
-            //    margin-left: calc(var(--logo-width) + 40px);
+        @media screen and (min-width: $breakpoint-xl) {
+            // margin-left: calc(var(--logo-width) + 40px);
         }
     }
 }
@@ -109,13 +124,13 @@
     position: relative;
 
     &::before {
+        content: '';
         display: block;
         position: absolute;
         top: 100%;
         left: 20px;
         height: 2px;
         width: calc(100% - 40px);
-        content: '';
         background-color: white;
         transform: scaleX(0);
         transition: 0.3s all;
@@ -125,42 +140,22 @@
         color: inherit;
     }
 
-    @media screen and (min-width: $breakpoint-md) {
+    @media screen and (min-width: $breakpoint-xl) {
         font-size: var(--font-size-h2);
-        color: var(--color-white);
-        padding: 0 20px;
-        position: relative;
         text-transform: none;
 
-        &::before {
-            display: block;
-            position: absolute;
-            top: 100%;
-            left: 20px;
-            height: 2px;
-            width: calc(100% - 40px);
-            content: '';
-            background-color: white;
-            transform: scaleX(0);
-            transition: 0.3s all;
-        }
-
-        &:hover {
-            text-decoration: none;
-            color: inherit;
-            &::before {
-                transform: scaleX(1);
-            }
+        &:hover::before {
+            transform: scaleX(1);
         }
     }
 }
+
 .header__toggle {
     --bar-height: 8px;
     --bar-width: 50px;
     --bar-spacer: 6px;
     background: transparent;
     border: none;
-
     outline: none;
     cursor: pointer;
     padding: 0;
@@ -168,20 +163,24 @@
     width: var(--bar-width);
     height: var(--bar-width);
     z-index: 10;
+
     span {
         background: var(--color-white);
         border-radius: 3px;
         height: var(--bar-height);
         width: 100%;
         position: absolute;
-        top: calc(50% - var(--bar-height) / 2);
-        left: calc(50% - var(--bar-width) / 2);
-        transition: 0.3 all ease-out;
+        left: 0;
+        transition: 0.3s all ease-out;
+
         &:nth-child(1) {
             top: calc(
                 50% - var(--bar-height) / 2 - var(--bar-height) -
                     var(--bar-spacer)
             );
+        }
+        &:nth-child(2) {
+            top: calc(50% - var(--bar-height) / 2);
         }
         &:nth-child(3) {
             top: calc(
@@ -190,26 +189,26 @@
             );
         }
     }
-    .nav-is-active & {
-        span {
-            top: calc(50% - var(--bar-height) / 2);
-            &:nth-child(1) {
-                transform: rotate(45deg);
-            }
-            &:nth-child(2) {
-                transform: scaleX(0);
-            }
-            &:nth-child(3) {
-                transform: rotate(-45deg);
-            }
+
+    .nav-is-active & span {
+        top: calc(50% - var(--bar-height) / 2);
+
+        &:nth-child(1) {
+            transform: rotate(45deg);
+        }
+        &:nth-child(2) {
+            transform: scaleX(0);
+        }
+        &:nth-child(3) {
+            transform: rotate(-45deg);
         }
     }
-    @media screen and (min-width: $breakpoint-md) {
+
+    @media screen and (min-width: $breakpoint-xl) {
         display: none;
     }
 }
-.nav-is-active {
-    body {
-        overflow: hidden;
-    }
+
+.nav-is-active body {
+    overflow: hidden;
 }
